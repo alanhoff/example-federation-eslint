@@ -1,0 +1,7 @@
+query getTopProducts($limit: Int) {
+  topProducts(first: $limit) {
+    upc
+    name
+    price
+  }
+}

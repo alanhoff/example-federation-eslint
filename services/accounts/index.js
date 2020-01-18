@@ -1,17 +1,8 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { buildFederatedSchema } = require("@apollo/federation");
+const fs = require('fs');
 
-const typeDefs = gql`
-  extend type Query {
-    me: User
-  }
-
-  type User @key(fields: "id") {
-    id: ID!
-    name: String
-    username: String
-  }
-`;
+const typeDefs = gql`${fs.readFileSync(__dirname + '/schema.graphql', 'utf8')}`;
 
 const resolvers = {
   Query: {

@@ -1,18 +1,8 @@
 const { ApolloServer, gql } = require("apollo-server");
 const { buildFederatedSchema } = require("@apollo/federation");
+const fs = require("fs");
 
-const typeDefs = gql`
-  extend type Query {
-    topProducts(first: Int = 5): [Product]
-  }
-
-  type Product @key(fields: "upc") {
-    upc: String!
-    name: String
-    price: Int
-    weight: Int
-  }
-`;
+const typeDefs = gql`${fs.readFileSync(__dirname + '/schema.graphql', 'utf8')}`;
 
 const resolvers = {
   Product: {
